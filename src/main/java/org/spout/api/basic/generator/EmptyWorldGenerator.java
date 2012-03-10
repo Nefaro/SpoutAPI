@@ -28,6 +28,8 @@ package org.spout.api.basic.generator;
 import org.spout.api.basic.blocks.SpoutBlocks;
 import org.spout.api.generator.Populator;
 import org.spout.api.generator.WorldGenerator;
+import org.spout.api.geo.World;
+import org.spout.api.geo.discrete.atomic.Transform;
 import org.spout.api.util.cuboid.CuboidShortBuffer;
 
 public class EmptyWorldGenerator implements WorldGenerator {
@@ -37,5 +39,11 @@ public class EmptyWorldGenerator implements WorldGenerator {
 
 	public Populator[] getPopulators() {
 		return new Populator[0];
+	}
+
+	@Override
+	public Transform getSpawn(World world) {
+		//TODO Or maybe a general 0,0,0 point ?
+		return null;
 	}
 }

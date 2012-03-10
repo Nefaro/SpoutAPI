@@ -47,10 +47,28 @@ public abstract class BiomeGenerator implements WorldGenerator {
 	private final BiomeMap biomes = new BiomeMap();
 
 	private final ArrayList<Populator> populators = new ArrayList<Populator>();
+	
+	protected final float spawnX;
+	protected final float spawnY;
+	protected final float spawnZ;
 
-	public BiomeGenerator() {
+	/**
+	 * Constuctor with spawn locations
+	 * 
+	 * @param spawnX
+	 * @param spawnY
+	 * @param spawnZ
+	 */
+	public BiomeGenerator(float spawnX, float spawnY, float spawnZ) {
 		populators.add(new BiomePopulator(biomes));
 		registerBiomes();
+		this.spawnX = spawnX;
+		this.spawnY = spawnY;
+		this.spawnZ = spawnZ;
+	}
+	
+	public BiomeGenerator() {
+		this(0F,0F,0F);
 	}
 
 	/**
@@ -81,8 +99,8 @@ public abstract class BiomeGenerator implements WorldGenerator {
 			return;
 		}
 
-		for (int dx = x; dx < x + 16; ++dx) {
-			for (int dz = z; dz < z + 16; ++dz) {
+		for (int dx = x; dx < x + Chunk.CHUNK_SIZE; ++dx) {
+			for (int dz = z; dz < z + Chunk.CHUNK_SIZE; ++dz) {
 				biomes.getBiome(dx, dz, seed).generateColumn(blockData, dx, chunkY, dz);
 			}
 		}

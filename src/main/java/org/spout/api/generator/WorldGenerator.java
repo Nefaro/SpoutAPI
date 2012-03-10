@@ -25,6 +25,8 @@
  */
 package org.spout.api.generator;
 
+import org.spout.api.geo.World;
+import org.spout.api.geo.discrete.atomic.Transform;
 import org.spout.api.util.cuboid.CuboidShortBuffer;
 
 public interface WorldGenerator {
@@ -50,4 +52,13 @@ public interface WorldGenerator {
 	 * @return the Populator array
 	 */
 	public Populator[] getPopulators();
+	
+	/**
+	 * Get the transformed representation of the spawpoint within the world. 
+	 * 
+	 * @param world The world where the spawn is locatied
+	 * 
+	 * @return Transformed representation of the spawn
+	 */
+	public Transform getSpawn(World world);
 }

@@ -28,9 +28,25 @@ package org.spout.api.basic.generator;
 import org.spout.api.basic.blocks.SpoutBlocks;
 import org.spout.api.generator.Populator;
 import org.spout.api.generator.WorldGenerator;
+import org.spout.api.geo.World;
+import org.spout.api.geo.discrete.Point;
+import org.spout.api.geo.discrete.atomic.Transform;
+import org.spout.api.math.Quaternion;
+import org.spout.api.math.Vector3;
 import org.spout.api.util.cuboid.CuboidShortBuffer;
 
 public class FlatWorldGenerator implements WorldGenerator {
+
+	protected final float spawnX;
+	protected final float spawnY;
+	protected final float spawnZ;
+
+	public FlatWorldGenerator(float spawnX, float spawnY, float spawnZ) {
+		this.spawnX = spawnX;
+		this.spawnY = spawnY;
+		this.spawnZ = spawnZ;
+	}
+
 	public void generate(CuboidShortBuffer blockData, int chunkX, int chunkY, int chunkZ) {
 		if (chunkY < 0) {
 			blockData.flood(SpoutBlocks.unbreakable.getId());
@@ -39,5 +55,10 @@ public class FlatWorldGenerator implements WorldGenerator {
 
 	public Populator[] getPopulators() {
 		return new Populator[0];
+	}
+
+	@Override
+	public Transform getSpawn(World world) {
+		return new Transform(new Point(world, this.spawnX, this.spawnY, this.spawnZ), Quaternion.identity, Vector3.ONE);
 	}
 }
